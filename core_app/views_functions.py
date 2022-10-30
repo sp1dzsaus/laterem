@@ -15,7 +15,7 @@ def fill_work_dicts(request, work_name):
         WORKS[work_name].append([el, el.replace(' ', SPACE_REPLACER)])
         TASKS_IN_WORKS[task_key] = work_name
 
-        if task_key in request.session: del request.session[task_key] # Наспайдено
+        # if task_key in request.session: del request.session[task_key] # Наспайдено
     
     return list(text['tasks'].keys())[0].replace(' ', SPACE_REPLACER)
 

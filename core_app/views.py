@@ -26,15 +26,27 @@ def task_view(request, taskname):
 
     # Заполнение Дополнительных аргументов (Костыль?)
     additional_render_args = fill_additional_args(taskname)
-    # Вызов функции рендера (Если задание зранится в сессии, то берем оттуда, иначе рендерим с 0)
-    if request.session.get(taskname) == None:
+
+    if request.session.get('tasks') == None:
+        print('!!!!!!!!!!!!!!!!!!!1111')
+        request.session.clear()
+        request.session['tasks'] = dict()
+
+    print('§§§§§§§§§§§§§§§§')
+    print(list(request.session['tasks'].keys()))
+    print(taskname)
+    print()
+
+    # Вызов функции рендера (Если задание зранится в сессии, то берем оттуда, иначе рендерим с 0)\
+    try:
+        # Рендер из сессии
+        return task_handle(request, TaskData.from_JSON(request.session['tasks'][taskname]), taskname, additional_render_args)
+    except KeyError:
         task = TaskData.open(TASKS[taskname])
 
-        request.session[taskname] = task.as_JSON()
+        request.session['tasks'][taskname] = task.as_JSON()
+        print(list(request.session['tasks'].keys()))
         return task_handle(request, task, taskname, additional_render_args)
-    
-    # Рендер из сессии
-    return task_handle(request, TaskData.from_JSON(request.session[taskname]), taskname, additional_render_args)
 
 # Переадресация на страницу отображения результата
 def task_handle(request, task, taskname, additional_render_args):
