@@ -1,10 +1,6 @@
-import json
 from context_objects import SPACE_REPLACER, WORK_DIR
 from .forms import *
 from dtm.works import Work
-
-def count_work(taskname):
-    return taskname[taskname.rfind('/') + 1 : taskname[taskname.rfind('/') + 1 : ].find('_id')]
 
 def fill_additional_args(request, taskname, theme):
     work_name, taskid = taskname.split('_id')
@@ -13,7 +9,6 @@ def fill_additional_args(request, taskname, theme):
     workobject = Work(work_path)
 
     ret = {}
-    work_name = count_work(taskname)
     ret['button1'] = AddAnswerForm()
     ret['workdir'] = WORK_DIR
     ret['meta_tasktype'] = workobject.tasks[taskid]
