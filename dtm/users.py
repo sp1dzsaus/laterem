@@ -48,8 +48,7 @@ class User:
                       ensure_ascii=False)
         self.modified = False
     
-    def get_task_verdict(self, workpath, taskname):
-        worklayers = workpath.split(SEPARATOR)
+    def get_task_verdict(self, worklayers, taskname):
         cd = self.raw_verdicts
         for layer in worklayers:
             if layer not in cd:
@@ -57,8 +56,7 @@ class User:
             cd = cd[layer]
         return cd[taskname] if taskname in cd else Verdicts.NO_ANSWER
 
-    def set_verdict(self, workpath, taskname, verdict):
-        worklayers = workpath.split(SEPARATOR)
+    def set_verdict(self, worklayers, taskname, verdict):
         cd = self.raw_verdicts
         for layer in worklayers:
             if layer not in cd:

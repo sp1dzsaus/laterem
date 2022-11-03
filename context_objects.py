@@ -10,8 +10,6 @@ if platform == 'darwin':
 else:
     SEPARATOR = '\\'
 
-TASK_TYPES = dict()
-WORKS = dict()
 DTM_SCANNER = Scanner('data' + SEPARATOR + 'tasks' + SEPARATOR)
 WORK_DIR = rdir_to_tree('data' + SEPARATOR + 'works' + SEPARATOR)
 SPACE_REPLACER = '§'
